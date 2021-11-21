@@ -1,0 +1,11 @@
+{
+	"name": "project2",
+	"version": "1.0.0",
+	"description": "Project2 ",
+	"author": "Alan Arevalo",
+	"license": "ISC",
+	"dependencies": {
+		"library2": "1.0.0",
+		"library6": "1.0.0"
+	}
+}

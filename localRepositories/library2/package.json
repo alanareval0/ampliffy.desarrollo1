@@ -1,0 +1,11 @@
+{
+	"name": "library2",
+	"version": "1.0.0",
+	"description": "library2 ",
+	"author": "Alan Arevalo",
+	"license": "ISC",
+	"dependencies": {
+		"library4": "1.0.0",
+		"library5": "1.0.0"
+	}
+}
