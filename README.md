@@ -1,7 +1,8 @@
-# ampliffy.desarrollo1
-Desarrollo 1 prueba tecnica para ampliffy
+# Ampliffy 
+Prueba tecnica para Ampliffy. 
+## Desarrollo1
 
-## Descripción del problema: 
+### Descripción del problema: 
 
 El objeto de este desarrollo es saber qué repositorios se han visto afectados por un commit/cambio en cualquiera de los repositorios que incluye. 
 Está enfocado a un sistema de CI/CD (no es necesario que hayas trabajado con CI/CD) que, básicamente, necesita entender dependencias declaradas usando package.json entre códigos ubicados en repositorios distintos. 
@@ -40,7 +41,7 @@ Para desambiguar qué Proyecto/Librería es desarrollada in-house o por terceras
 
 (En esta estructura de ejemplo no he incluido las librerías 3 5 y 6 por no interesarnos que influyan en el lanzamiento de Pipelines CI/CD, por ejemplo, por ser desarrolladas por terceras partes)
 
-## Solución propuesta. 
+### Solución propuesta. 
 *  El programa recibe 4 parametros.
    - *"p"* o *"project"* Indica nombre del repositorio al que se le hizo el commit, en caso de no incluirlo el sistema lo pregunta. 
    - *"c"* o *"commit"* Indica el commit ID 
@@ -52,3 +53,42 @@ Para desambiguar qué Proyecto/Librería es desarrollada in-house o por terceras
 * Crear una lista de objetos **Tree** para mapear cada repositorio y sus dependencias.
 * Buscar en la lista de **Tree** que repositorios se ven afectados con el commit realizado. 
 * Mostrar en consola los repositorios afectados por el commit.
+
+
+## Desarrollo 2
+
+### Descripcion del problema
+El objeto de este desarrollo es evaluar tu manejo de estructuras de Base de Datos.
+Plantea qué estructura de Base de Datos usarías para almacenar toda la información manejada en el Desarrollo 1, es decir, guardar y mantener la estructura en árbol dentro de una Base de Datos Mysql 8.
+Entrégame una URL de github donde pueda ver el código y el SQL con el resultado del desarrollo, por ejemplo, de un mysqldump del esquema de Base de Datos.
+
+### Solución propuesta.
+La base de datos consta de 2 tablas 
+
+1. tblRepository: En esta tabla se almacena la información importante del repositorio y se le asigna un *ID* unico
+   - idRepository: int, primary_key, unique, auto_increment
+   - name: varchar(214)
+   - description: varchar(max)
+   - version: varchar(11)
+   - author: varchar(50)
+   - license: varchar(10)
+   - active: boolean default true not null
+
+
+2. tblDependency: En esta tabla se hace la relación de un repositorio con sus dependencias por medio de los *ID*. El **idRepository**  es el repositorio principal y el **idRepositoryDependency** apunta a un repositorio pero este es tomado como dependencia del principal
+
+   - idDependency: int, primary_key,unique, auto_increment, not null
+   - idRepository: int, foreign_key, not null
+   - idRepositoryDependency: int, foreing_key, not null
+   - active: boolean default true not null
+
+
+## Desarrollo 3
+
+### Descripcion del problema
+Indica cómo corregir el hecho de que quede una línea en blanco entre el vídeo y el título del vídeo en esta página: https://es.ampliffy.com/2020/11/maxime-chabloz-un-10-en-su-competicion.html
+Valoro que la solución funcione con vídeos de diferentes relaciones de aspecto ( https://es.wikipedia.org/wiki/Relaci%C3%B3n_de_aspecto ), que funcione en Desktop/Mobile, y que funcione en diferentes navegadores.
+Indica en qué navegadores lo has probado.
+
+### Solución propuesta.
+

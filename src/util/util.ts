@@ -101,10 +101,9 @@ export const readParams = async (argv:string[]): Promise<Params> => {
 		let isValidAnswer = false;
 
 		while (!isValidAnswer) {
-			/*let answer = String(
+			let answer = String(
 				await question('Quiere usar el directorio por defecto? (y/n)?')
-			).toLowerCase();*/
-			let answer = 'y';
+			).toLowerCase();
 
 			if (answer === 'n' || answer === 'no') {
 				let dir = String(await question('Cual tu directorio?'));
