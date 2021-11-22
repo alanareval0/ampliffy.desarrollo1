@@ -54,6 +54,11 @@ Para desambiguar qué Proyecto/Librería es desarrollada in-house o por terceras
 * Buscar en la lista de **Tree** que repositorios se ven afectados con el commit realizado. 
 * Mostrar en consola los repositorios afectados por el commit.
 
+### Instrucciones para iniciar el proyecto. 
+* Para correr el proyecto en desarrollo utilizar el comando: `npm run dev`
+* Para generar los archivos *js* utilizar el comando `npm run build`
+* Para correr los archivos *js* generados utilizar el comando `npm start`
+
 
 ## Desarrollo 2
 
@@ -91,4 +96,15 @@ Valoro que la solución funcione con vídeos de diferentes relaciones de aspecto
 Indica en qué navegadores lo has probado.
 
 ### Solución propuesta.
+Ejecutar los siguientes querys en la consola del navegador o agregar directamente las propiedades de estilo al codigo html basado en los IDs.
+Esta solución es basada solo en esa pagina, para agregarla a todo el sitio se debera modificar la construcción del HTML y modificar dichas propiedades. 
+`document.querySelector("#vid-695094266").style.display = "contents";` <br/>
+`document.querySelector("#vid-695094266 > div").style.alignItems = "end";` <br/>
+
+Instrucciones probadas en **GOogle Chrome** y **Mozilla firefox** en escritorio y tambien simulando la resolucion de un telefono movil samsung galaxy note 20
+
+
+
+
+
 
