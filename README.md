@@ -41,7 +41,14 @@ Para desambiguar qué Proyecto/Librería es desarrollada in-house o por terceras
 (En esta estructura de ejemplo no he incluido las librerías 3 5 y 6 por no interesarnos que influyan en el lanzamiento de Pipelines CI/CD, por ejemplo, por ser desarrolladas por terceras partes)
 
 ## Solución propuesta. 
-
-1. Crear un programa que lea el folder local **localRepositories**.
-2. Dentro de cada sub folder encontrado buscar y leer el archivo **package.json**
-3. El archivo **package.json** mapearlo a la clase *Repository* con los atributos: name, description,version y dependencies. 
+*  El programa recibe 4 parametros.
+   - *"p"* o *"project"* Indica nombre del repositorio al que se le hizo el commit, en caso de no incluirlo el sistema lo pregunta. 
+   - *"c"* o *"commit"* Indica el commit ID 
+   - *"b"* o *"branch"* Indica el nombre del branch donde se realizó el commit
+   - *"d"* o *"dir"* Indica el directorio donde se encuentran los repositorios, en caso no indicarlo el sistema preguntará si se quiere usar el repositorio local. 
+* Leer el directorio recibido como argumento inicial. 
+* Dentro de cada sub directorio encontrado buscar y leer el archivo **package.json**
+* El archivo **package.json** mapearlo a la clase *Repository* con los atributos: name, description,version y dependencies. 
+* Crear una lista de objetos **Tree** para mapear cada repositorio y sus dependencias.
+* Buscar en la lista de **Tree** que repositorios se ven afectados con el commit realizado. 
+* Mostrar en consola los repositorios afectados por el commit.

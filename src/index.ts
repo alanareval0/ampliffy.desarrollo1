@@ -1,81 +1,54 @@
-import fs from 'fs';
-import { Tree } from './interfaces/Tree.interface';
-import { Repository } from './interfaces/Repository.interface';
-import * as readline from 'readline'
+import { Tree } from './interfaces/tree';
+import { argv } from 'process';
+import { Params } from './interfaces/params.interface';
+import { createTree, question, readParams } from './util/util';
+
+const init = async () => {
+	let params: Params = await readParams(argv);
+
+	let tree: Tree[] = createTree(params.dir!);
+
+	if (!tree.length) {
+		console.log(`No hay repositorios validos en: ${params.dir}`);
+	} else {
+		let currentProject = tree.filter((t) => t.getName() === params.project);
+
+		if (!currentProject.length) {
+			console.log(
+				`Projecto "${params.project} no encontrado en: ${params.dir}"`
+			);
+		}
+		console.log('Buscando pipelines...');
+		let affected = searchForDependencies(tree, params.project);
+
+		if (affected.length) {
+			affected.forEach((node) => {
+				console.log(`Afectado: ${node.getName()}`);
+			});
+
+            let printNodes = String(await question("Quieres imprimir el arbol de dependencias? (y/n) ")).toLowerCase();
 
 
-/*const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
-
-rl.question("What are you doing?", (answer) => 
-{
-    console.log("Ohh," + answer)
-    rl.close();
-})*/
-const localDir = './localRepositories/';
-let repositories: Repository[] = [];
-fs.readdirSync(localDir).forEach((folder) => {
-	let repository: string = localDir + folder + '/package.json';
-
-	if (fs.existsSync(repository)) {
-		const file: String = fs.readFileSync(repository).toString();
-
-		if (file && file !== '') {
-			const packageJSON: Repository = JSON.parse(file.toString());      
-            repositories.push(packageJSON);
+            if(printNodes === 'y' || printNodes === 'yes')
+            {
+                console.log("Imprimir");
+                affected.forEach(node => node.printDependencies());
+            }
+		} else {
+			console.log('No hay proyectos afectados por este commit');
 		}
 	}
-});
+	process.exit();
+};
+init();
 
-let tree: Tree[] = [];
-repositories.forEach( r => tree.push(createTree(repositories,r.name)));
+const searchForDependencies = (repos: Tree[], givenProject: string): Tree[] => {
+	let affected: Tree[] = [];
+	repos.forEach((node) => {
+		if (node.getName() !== givenProject && node.dependsOn(givenProject)) {
+			affected.push(node);
+		}
+	});
 
-
-function createTree(repos:Repository[],name:string): Tree
-{
-
-    let filtered = repos.filter( x => x.name === name);
-    let children: Tree[] = [];
-    if(filtered.length >= 1)
-    {
-        let repo = filtered[0];
-        
-
-        if( repo.dependencies)
-        {
-            for(let dependencyName in repo.dependencies)
-            {
-                children.push(createTree(repos, dependencyName));
-            }
-        }
-    }
-
-    let newTree:Tree = 
-    {
-        name: name,
-        dependecies: children
-    }
-
-    return newTree;
-    
-}
-
-tree.forEach( (node) => 
-{
-    printNode(node,'-');
-    console.log("")
-    
-})
-
-function printNode(node: Tree,prefix:string)
-{
-    console.log(prefix +" "+ node.name);
-
-    if(node.dependecies)
-    {
-        node.dependecies.forEach( n => printNode(n,prefix+'-'));
-    }
-}
-
+	return affected;
+};

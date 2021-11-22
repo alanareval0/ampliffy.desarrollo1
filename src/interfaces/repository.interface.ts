@@ -5,7 +5,3 @@ export interface Repository
     //author: string,
     dependencies?: any
 }
-export interface Dependency
-{
-    
-}

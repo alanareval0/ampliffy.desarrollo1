@@ -5,7 +5,7 @@
 	"author": "Alan Arevalo",
 	"license": "ISC",
 	"dependencies": {
-		"1library1": "1.0.0",
+		"library1": "1.0.0",
 		"library2": "1.0.0",
 		"library3": "1.0.0"
 	}
